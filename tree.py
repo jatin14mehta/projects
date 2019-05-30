@@ -108,3 +108,15 @@ class Tree:
                 parent_of_leftmost_node.left_child = leftmost_node.right_child
             else:
                 parent_of_leftmost_node.right_child = leftmost_node.right_child
+
+    def search(self, data):
+        current = self.root_node
+        while True:
+            if current is None:
+                return None
+            if current.data == data:
+                return data
+            elif current.data > data:
+                current = current.left_child
+            else:
+                current = current.right_child
