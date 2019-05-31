@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -34,12 +37,12 @@ class Tree:
                 parent = current
                 if node.data < current.data:
                     current = current.left_child
-                    if current.left_child is None:
+                    if current is None:
                         parent.left_child = node
                         return
                 else:
                     current = current.right_child
-                    if current.right_child is None:
+                    if current is None:
                         parent.right_child = node
                         return
 
@@ -120,3 +123,25 @@ class Tree:
                 current = current.left_child
             else:
                 current = current.right_child
+
+    def breadth_first_traversal(self):
+        list_of_nodes = []
+        traversal_queue = deque([self.root_node])
+
+        while len(traversal_queue) > 0:
+            node = traversal_queue.popleft()
+            list_of_nodes.append(node.data)
+            if node.left_child:
+                traversal_queue.append(node.left_child)
+            if node.right_child:
+                traversal_queue.append(node.right_child)
+        return list_of_nodes
+
+
+t1 = Tree()
+t1.insert(50)
+t1.insert(60)
+t1.insert(80)
+t1.insert(30)
+t1.insert(20)
+print(t1.breadth_first_traversal())
